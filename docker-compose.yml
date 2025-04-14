@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  csv-to-sqlite:
+    #construit dans le dossier courant
+    build: .
+    container_name: sqlite_base
+    volumes:
+      - ./data:/app/data
+      - ./src:/app/src
+    command: python src/script.py
