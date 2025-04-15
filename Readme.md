@@ -35,7 +35,7 @@ Deux services sont utilisés (dans docker-compose.yml) :
 🚀 Comment lancer avec Docker
 - Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
     
-    Commencez par installer Docker :
+    Commencez par installer Docker, puis suivre les étapes suivantes:
         
         - Dans le terminal, se mettre dans le dossier de travail
         - Lancer l’application avec la commande :
