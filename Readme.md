@@ -16,20 +16,21 @@ Deux services sont utilisés (dans docker-compose.yml) :
 
 
 📁 Arborescence du projet
-├── DATA/
-│   ├── magasins.csv              # Fichier CSV magasins source
-│   ├── produits.csv              # Fichier CSV produits source
-│   ├── ventes.csv                # Fichier CSV ventes source
-│   └── pme.db                    # Base SQLite générée
-│
-├── SRC/
-│   └── script.py                 # Script Python de conversion CSV ➜ SQLite
-│
-├── docker_architecture.png       # Schéma de l'architecture
-├── requirements.txt              # Dépendances Python
-├── Dockerfile                    # Image Docker avec Python + sqlite3
-├── docker-compose.yml            # Orchestration des conteneurs
-└── README.md                     # Documentation du projet
+
+    ├── DATA/
+    │   ├── magasins.csv              # Fichier CSV magasins source
+    │   ├── produits.csv              # Fichier CSV produits source
+    │   ├── ventes.csv                # Fichier CSV ventes source
+    │   └── pme.db                    # Base SQLite générée
+    │
+    ├── SRC/
+    │   └── script.py                 # Script Python de conversion CSV ➜ SQLite
+    │
+    ├── docker_architecture.png       # Schéma de l'architecture
+    ├── requirements.txt              # Dépendances Python
+    ├── Dockerfile                    # Image Docker avec Python + sqlite3
+    ├── docker-compose.yml            # Orchestration des conteneurs
+    └── README.md                     # Documentation du projet
 
 🚀 Comment lancer avec Docker
 
