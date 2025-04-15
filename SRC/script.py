@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS Ventes (
     date_vente TEXT,
     quantite INTEGER,
     FOREIGN KEY(id_produit) REFERENCES Produit(id_produit),
-    FOREIGN KEY(id_magasin) REFERENCES Magasins(id_magasin)
+    FOREIGN KEY(id_magasin) REFERENCES Magasins(id_magasin),
+    UNIQUE(id_produit, id_magasin, date_vente)
 )
 ''')
 
@@ -68,7 +69,7 @@ df_ventes=df_ventes.rename(columns={
 ordre_colonnes_ventes = ['id_produit', 'id_magasin', 'date_vente', 'quantite']
 df_ventes = df_ventes[ordre_colonnes_ventes]
 
-#Eviter les doublons en base
+#Eviter les doublons en base sur les TABLES (Produits, Magasins) 
 id_produit_existant = pd.read_sql("SELECT id_produit FROM Produit", conn)['id_produit'].tolist()
 df_produits = df_produits[~df_produits['id_produit'].isin(id_produit_existant)]
 

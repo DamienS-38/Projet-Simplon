@@ -102,5 +102,7 @@ docker compose down
 ---
 
 ## 📬 Contact
-- Lien Linkedin: 📧 [Linkedin](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)
-    
+
+👤 Damien Schaeffer  
+🔗 [LinkedIn](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)
+---
