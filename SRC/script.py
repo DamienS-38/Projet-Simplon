@@ -4,7 +4,7 @@ import sqlite3
 import os
 
 # Connexion à la base SQLite
-conn = sqlite3.connect("pme.db")
+conn = sqlite3.connect(os.path.join("DATA", "pme.db"))
 cursor = conn.cursor()
 
 # Création des tables si elles n'existent pas
@@ -85,9 +85,14 @@ df_ventes = df_ventes[~df_ventes['vente_key'].isin(ventes_existantes['vente_key'
 df_ventes = df_ventes.drop(columns=['vente_key'])
 
 # Insertion des données
-df_produits.to_sql('Produit', conn, if_exists='replace', index=False)
-df_magasins.to_sql('Magasins', conn, if_exists='replace', index=False)
+df_produits.to_sql('Produit', conn, if_exists='append', index=False)
+print("Insertion des produits terminée.")
+
+df_magasins.to_sql('Magasins', conn, if_exists='append', index=False)
+print("Insertion des magasins terminée.")
+
 df_ventes.to_sql('Ventes', conn, if_exists='append', index=False)
+print("Insertion des ventes terminée.")
 
 # Finalisation
 conn.commit()

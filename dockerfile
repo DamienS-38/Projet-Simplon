@@ -20,5 +20,5 @@ COPY requirements.txt .
 #Install de requirement.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "hello.py"]
-#CMD ["python", "SRC/script.py"]
+#CMD ["python", "hello.py"]
+CMD ["python", "SRC/script.py"]

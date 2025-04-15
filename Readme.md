@@ -59,7 +59,7 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 
 3. 🧱 **Construire et démarrer les conteneurs :**
 ```bash
-docker compose up --build
+docker compose up --build -d
 ```
 
 4. ✅ **Vérifier que tout tourne :**
@@ -74,14 +74,23 @@ sqlite3 /app/DATA/pme.db
 ```
 
 ---
+
+🖼️ **Schéma de la base de données** :  
+![MCD](MCD_pme.png)
+
+
+
+
+
+
 ## 🧪 Requêtes SQL dans SQLite
 
 Voici quelques commandes utiles une fois dans le client SQLite :
 
 ```sql
-.tables                     -- Voir les tables disponibles
-.schema nom_de_table       -- Voir la structure d’une table
-SELECT * FROM ventes;      -- Voir les ventes
+.tables                    -- Voir les tables disponibles
+.schema Ventes             -- Voir la structure de la table "Ventes"
+SELECT * FROM Ventes;      -- Voir les ventes
 ```
 ---
 
