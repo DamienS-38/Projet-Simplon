@@ -10,8 +10,7 @@
 
 🧭 Architecture du Projet
 
-    Voici un visuel de l’architecture Dockerdu projet :
-
+Voici un visuel de l’architecture Dockerdu projet :
     ![Architecture Docker](./docker-architecture.png)
 
 
