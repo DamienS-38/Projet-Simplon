@@ -1,5 +1,6 @@
 
 🎯 Objectif du projet
+
     Description:
         -Ce projet a pour but d’automatiser le traitement de fichiers CSV contenant des informations liées aux ventes, aux clients, aux produits et aux collaborateurs d’une PME.
         Le script Python fourni permet de nettoyer, structurer et stocker les données dans une base SQLite (pme.db), tout en respectant l’intégrité des données (relations, clés primaires/étrangères, etc.).
