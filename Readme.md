@@ -1,6 +1,6 @@
-# 📊 Projet SIMPLON (CSV ➜ SQLite avec Docker)
+# Projet SIMPLON (CSV ➜ SQLite avec Docker)
 
-## 🎯 Objectif du projet
+## Objectif du projet
 
 - Lire un ou plusieurs fichiers **CSV**.
 - Générer une base **SQLite** contenant les données.
@@ -8,7 +8,7 @@
 
 ---
 
-## 🧱 Architecture (Docker)
+## Architecture (Docker)
 
 Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 
@@ -17,12 +17,12 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 | `csv-runner`  | Exécute le script Python de transformation CSV ➜ SQLite                 |
 | `sqlite_base` | Conteneur persistant pour accéder à la base SQLite et faire des requêtes |
 
-🖼️ **Schéma de l'architecture** :  
+**Schéma de l'architecture** :  
 ![Architecture Docker](docker_architecture.png)
 
 ---
 
-## 📁 Arborescence du projet
+##  Arborescence du projet
 ```
 ├── DATA/
 │   ├── magasins.csv              # CSV source des magasins
@@ -41,7 +41,7 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 ```
 ---
 
-## ⚙️ Fonctionnalités du script Python
+##  Fonctionnalités du script Python
 
     Description des étapes dans le script :
         - Nettoie et renomme les colonnes des CSV
@@ -51,23 +51,23 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 
 ---
 
-## 🚀 Comment exécuter l'application avec Docker
-1. ⚙️ **Installer Docker** si ce n’est pas déjà fait :  
-   👉 [Docker Desktop](https://www.docker.com/products/docker-desktop)
+##  Comment exécuter l'application avec Docker
+1.  **Installer Docker** si ce n’est pas déjà fait :  
+    [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-2. 📁 Ouvrir un terminal dans le dossier du projet
+2.  Ouvrir un terminal dans le dossier du projet
 
-3. 🧱 **Construire et démarrer les conteneurs :**
+3.  **Construire et démarrer les conteneurs :**
 ```bash
 docker compose up --build -d
 ```
 
-4. ✅ **Vérifier que tout tourne :**
+4.  **Vérifier que tout tourne :**
 ```bash
 docker ps
 ```
 
-5. 🔍 **Accéder à SQLite dans le conteneur :**
+5.  **Accéder à SQLite dans le conteneur :**
 ```bash
 docker exec -it sqlite_base bash
 sqlite3 /app/DATA/pme.db
@@ -75,7 +75,7 @@ sqlite3 /app/DATA/pme.db
 
 ---
 
-🖼️ **Schéma de la base de données** :  
+**Schéma de la base de données** :  
 ![MCD](MCD_pme.png)
 
 ---
@@ -83,7 +83,7 @@ sqlite3 /app/DATA/pme.db
 
 
 
-## 🧪 Requêtes SQL dans SQLite
+## Requêtes SQL dans SQLite
 
 Voici quelques commandes utiles une fois dans le client SQLite :
 
@@ -94,7 +94,7 @@ SELECT * FROM Ventes;      -- Voir les ventes
 ```
 ---
 
-## 🚪 Quitter l’application
+## Quitter l’application
 - Quitter sqlite :
 ```bash
 .quit
@@ -117,7 +117,7 @@ docker-compose run analyse
 ---
 
 ## Gestion des Erreurs:
-1. ✅ **Afficher des Logs en cas d'erreurs :**
+1. **Afficher des Logs en cas d'erreurs :**
 ```bash
 docker-compose up csv-to-sqlite
 ```
