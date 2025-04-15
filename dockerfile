@@ -1,5 +1,10 @@
 FROM python:3.12.8
 
+# Labels pour les métadonnées
+LABEL maintainer="Schaeffer <damien.schaeffer@gmail.com>"
+LABEL version="1.0"
+LABEL description="Projet Simplon"
+
 #Création d'un dossier app
 WORKDIR /app
 

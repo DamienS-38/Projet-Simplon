@@ -8,3 +8,6 @@ services:
       - ./DATA:/app/DATA
       - ./SCR:/app/SCR
     command: python SCR/script.py
+    labels:
+      maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
+      description: "Projet Simplon"
