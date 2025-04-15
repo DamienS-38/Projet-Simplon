@@ -103,6 +103,6 @@ docker compose down
 
 ## 📬 Contact
 
-👤 Damien Schaeffer  
+👤 Damien S
 🔗 [LinkedIn](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)
 ---
