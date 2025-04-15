@@ -17,9 +17,9 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 | `csv-runner`  | Exécute le script Python de transformation CSV ➜ SQLite                 |
 | `sqlite_base` | Conteneur persistant pour accéder à la base SQLite et faire des requêtes |
 
+---
 
-
-📁 Arborescence du projet
+## 📁 Arborescence du projet
 
     ├── DATA/
     │   ├── magasins.csv              # Fichier CSV magasins source
@@ -36,7 +36,9 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
     ├── docker-compose.yml            # Orchestration des conteneurs
     └── README.md                     # Documentation du projet
 
-⚙️ Fonctionnalités du script Python
+---
+
+## ⚙️ Fonctionnalités du script Python
 
     Description des étapes dans le script :
         - Nettoie et renomme les colonnes des CSV
@@ -44,8 +46,9 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
         - Insère les données en base
         - Respect des clés primaires/étrangères et l’auto-incrément de id_vente
 
+---
 
-🚀 Comment exécuter l'application avec Docker
+## 🚀 Comment exécuter l'application avec Docker
 - Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
     
 Commencez par installer Docker, puis dans le terminal, se mettre dans le dossier de travail
@@ -68,10 +71,11 @@ sqlite3 /app/DATA/pme.db
 ```
 
 
+---
 
 
 
-🚪 Quitter l’application
+## 🚪 Quitter l’application
 - Quitter sqlite :
 ```bash
 .quit
@@ -83,8 +87,10 @@ Exit
 - Pour arrêter le conteneur (à la fin de l'utilisation) :
 ```bash
 docker compose down
-```       
+```  
+     
+---
 
-📬 Contact
+## 📬 Contact
 - Lien Linkedin: 📧 [Linkedin](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)
     
