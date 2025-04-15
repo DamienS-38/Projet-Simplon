@@ -74,8 +74,16 @@ sqlite3 /app/DATA/pme.db
 ```
 
 ---
+## 🧪 Requêtes SQL dans SQLite
 
+Voici quelques commandes utiles une fois dans le client SQLite :
 
+```sql
+.tables                     -- Voir les tables disponibles
+.schema nom_de_table       -- Voir la structure d’une table
+SELECT * FROM ventes;      -- Voir les ventes
+```
+---
 
 ## 🚪 Quitter l’application
 - Quitter sqlite :
