@@ -21,7 +21,24 @@ conn.commit()
 
 today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-# 1. Produits vendus par magasin
+# 1. Chiffre d'affaires total
+query_ca_total = """
+SELECT SUM(V.quantite * P.prix) AS chiffre_affaires_total
+FROM Ventes V
+JOIN Produit P ON V.id_produit = P.id_produit
+"""
+df_ca_total = pd.read_sql(query_ca_total, conn)
+cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
+               (today, "ca_total", df_ca_total.to_json(orient="records")))
+conn.commit()
+
+print(f"\n💰 Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:.2f} €")
+
+
+
+
+
+# 2. Produits vendus par magasin
 query_magasins = """
 SELECT M.ville, SUM(V.quantite) AS total_produits_vendus
 FROM Ventes V
@@ -34,7 +51,7 @@ cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUE
                (today, "quantite_par_magasin", df_magasins.to_json(orient="records")))
 conn.commit()
 
-# 2. Top 10 produits
+# 3. Top 10 produits
 query_top = """
 SELECT P.nom AS produit, SUM(V.quantite) AS total_vendu
 FROM Ventes V
@@ -48,7 +65,7 @@ cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUE
                (today, "top_10_produits", df_top.to_json(orient="records")))
 conn.commit()
 
-# 3. Chiffre d'affaires par magasin
+# 4. Chiffre d'affaires par magasin
 query_ca = """
 SELECT M.ville, SUM(V.quantite * P.prix) AS chiffre_affaires
 FROM Ventes V
@@ -62,18 +79,7 @@ cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUE
                (today, "ca_par_magasin", df_ca.to_json(orient="records")))
 conn.commit()
 
-# 4. Chiffre d'affaires total
-query_ca_total = """
-SELECT SUM(V.quantite * P.prix) AS chiffre_affaires_total
-FROM Ventes V
-JOIN Produit P ON V.id_produit = P.id_produit
-"""
-df_ca_total = pd.read_sql(query_ca_total, conn)
-cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
-               (today, "ca_total", df_ca_total.to_json(orient="records")))
-conn.commit()
 
-print(f"\n💰 Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:.2f} €")
 
 
 # Fermeture

@@ -120,11 +120,14 @@ docker compose run --rm analyse
 Le script analyse.py permet d'extraire des indicateurs clés à partir des données de la base pme.db.
 Requêtes effectuées :
 
-    📦 Quantité de produits par magasin
+    1. Chiffre d'affaires total
+    
+    2. Quantité de produits par magasin
 
-    🏆 Produit le plus vendu
+    3. Produit le plus vendu
 
-    💰 Chiffre d'affaires par magasin (quantité × prix unitaire)
+    4. Chiffre d'affaires par magasin (quantité × prix unitaire)
+
 
 
 ---
