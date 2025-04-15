@@ -1,19 +1,35 @@
 
 🎯 Objectif du projet
 
-    Description:
-        -Ce projet a pour but d’automatiser le traitement de fichiers CSV contenant des informations
-        liées aux ventes, aux clients, aux produits et aux collaborateurs d’une PME. Le script Python
-        fourni permet de nettoyer, structurer et stocker les données dans une base SQLite (pme.db), 
-        tout en respectant l’intégrité des données (relations, clés primaires/étrangères, etc.)
+- Lire un ou plusieurs fichiers CSV.
+- Générer une base SQLite contenant les données.
+- Permettre des requêtes SQL interactives sur la base.
+
+🧱 Architecture (Docker)
+
+Deux services sont utilisés (dans docker-compose.yml) :
+
+| Service       | Rôle                                                                     |
+|---------------|--------------------------------------------------------------------------|
+| `csv-runner`  | Exécute le script Python de transformation CSV ➜ SQLite                 |
+| `sqlite_base` | Conteneur persistant pour accéder à la base SQLite et faire des requêtes |
 
 
-🧭 Architecture du Projet
-
-Voici un visuel de l’architecture Dockerdu projet :
-    ![Architecture Docker](docker-architecture.png)
-
-
+📁 Arborescence du projet
+├── DATA/
+│   ├── magasins.csv              # Fichier CSV magasins source
+│   ├── produits.csv              # Fichier CSV produits source
+│   ├── ventes.csv                # Fichier CSV ventes source
+│   └── pme.db                    # Base SQLite générée
+│
+├── SRC/
+│   └── script.py                 # Script Python de conversion CSV ➜ SQLite
+│
+├── docker_architecture.png       # Schéma de l'architecture
+├── requirements.txt              # Dépendances Python
+├── Dockerfile                    # Image Docker avec Python + sqlite3
+├── docker-compose.yml            # Orchestration des conteneurs
+└── README.md                     # Documentation du projet
 
 🚀 Comment lancer avec Docker
 
@@ -23,7 +39,7 @@ Voici un visuel de l’architecture Dockerdu projet :
         - Lancer l’application avec la commande :
             ```bash
             docker compose up --build
-        - Pour tester le containeur dans le terminal : docker start -ai sqlite_base
+        - Pour tester le containeur dans le terminal : docker ps
         - Pour arrêter le conteneur (à la fin de l'utilisation):
             ```bash
             docker compose down
@@ -41,3 +57,9 @@ Voici un visuel de l’architecture Dockerdu projet :
 
 
 Exemple de requêtes
+
+
+📬 Contact
+
+    Damien S.
+    📧 [Linkedin](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)

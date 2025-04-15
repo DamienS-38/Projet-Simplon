@@ -2,11 +2,22 @@
 services:
   csv-to-sqlite:
     build: .
-    container_name: sqlite_base
+    container_name: csv-runner
     volumes:
       - ./DATA:/app/DATA
       - ./SRC:/app/SRC
     command: python SRC/script.py
     labels:
       maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
-      description: "Projet Simplon"
+      description: "Exécution du script de transformation CSV vers SQLite"
+
+  sqlite_base:
+    build: .
+    container_name: sqlite_base
+    volumes:
+      - ./DATA:/app/DATA
+      - ./SRC:/app/SRC
+    command: tail -f /dev/null
+    labels:
+      maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
+      description: "Conteneur interactif pour manipuler la base SQLite"

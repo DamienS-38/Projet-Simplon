@@ -8,6 +8,9 @@ LABEL description="Projet Simplon"
 #Création d'un dossier app
 WORKDIR /app
 
+# Ajout de sqlite3 CLI
+RUN apt update && apt install -y sqlite3
+
 #Copie des sources de travail et les .csv dans le conteneur
 #Copie du Script python
 COPY ./SRC /SRC
