@@ -10,12 +10,19 @@
 
 ## Architecture (Docker)
 
-Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
+Ce projet utilise **trois services Docker** définis dans `docker-compose.yml` :
 
-| Service       | Rôle                                                                     |
-|---------------|--------------------------------------------------------------------------|
-| `csv-runner`  | Exécute le script Python de transformation CSV ➜ SQLite                 |
-| `sqlite_base` | Conteneur persistant pour accéder à la base SQLite et faire des requêtes |
++---------------------+          +---------------------+          +---------------------+
+|                     |          |                     |          |                     |
+|     csv-to-sqlite   |          |     sqlite_base     |          |       analyse        |
+|                     |          |                     |          |                     |
+| - Transforme CSV    |          | - Base SQLite       |          | - Exécute analyse    |
+|   vers SQLite       | <------> |   persistante       | <------> |   SQL                |
+| - Dépend de         |          | - Conteneur de base |          | - Lit les données    |
+|   sqlite_base       |          |   SQLite            |          |   depuis sqlite_base |
+|                     |          |                     |          |                     |
++---------------------+          +---------------------+          +---------------------+
+
 
 **Schéma de l'architecture** :  
 ![Architecture Docker](docker_architecture.png)
