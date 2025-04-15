@@ -1,15 +1,33 @@
 # Imports
-import pandas as pd
-import sqlite3
 import os
+import sqlite3
+import pandas as pd
+
+
+# Chargement des CSV
+df_produits = pd.read_csv('DATA/produits.csv', delimiter=',')
+df_magasins = pd.read_csv('DATA/magasins.csv', delimiter=',')
+df_ventes = pd.read_csv('DATA/ventes.csv', delimiter=',')
+
+#Vérification du chargement des CSV
+print(df_produits.head())
+print(df_magasins.head())
+print(df_ventes.head())
+
+#Récupération des csv en ligne
+url_produits="https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=0&single=true&output=csv"
+url_magasins = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=714623615&single=true&output=csv"
+url_ventes   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=760830694&single=true&output=csv"
+
+
 
 # Connexion à la base SQLite
-conn = sqlite3.connect(os.path.join("DATA", "pme.db"))
+db_path = os.path.join("DATA", "pme.db")
+conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
 # Activer les clés étrangères
 cursor.execute('PRAGMA foreign_keys = ON;')
-
 
 # Création des tables si elles n'existent pas
 cursor.execute('''
@@ -42,16 +60,7 @@ CREATE TABLE IF NOT EXISTS Ventes (
 )
 ''')
 
-# Chargement des CSV
-df_produits = pd.read_csv('DATA/produits.csv', delimiter=',')
-df_magasins = pd.read_csv('DATA/magasins.csv', delimiter=',')
-df_ventes = pd.read_csv('DATA/ventes.csv', delimiter=',')
 
-
-#Vérification
-print(df_produits.head())
-print(df_magasins.head())
-print(df_ventes.head())
 
 
 

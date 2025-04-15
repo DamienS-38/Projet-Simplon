@@ -110,10 +110,23 @@ docker compose down
 
 ---
 
-## Analyse de la PME:
+## Analyse des Données (via analyse.py)
+
+- Exécuter l’analyse (en supprimant le conteneur automatiquement après) :
 ```bash
-docker-compose run analyse
+docker compose run --rm analyse
 ```
+
+Le script analyse.py permet d'extraire des indicateurs clés à partir des données de la base pme.db.
+Requêtes effectuées :
+
+    📦 Quantité de produits par magasin
+
+    🏆 Produit le plus vendu
+
+    💰 Chiffre d'affaires par magasin (quantité × prix unitaire)
+
+
 ---
 
 ## Gestion des Erreurs:

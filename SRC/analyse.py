@@ -1,55 +1,80 @@
 import sqlite3
 import pandas as pd
+from datetime import datetime
 import os
 
-# Connexion à la base de données
-conn = sqlite3.connect(os.path.join("DATA", "pme.db"))
+# Connexion à la base
+db_path = os.path.join("DATA", "pme.db")
+conn = sqlite3.connect(db_path)
+cursor = conn.cursor()
 
-# 1. Quantité totale de produits vendus par magasin
+# Création de la table Analyse si elle n'existe pas
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS Analyse (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date_analyse TEXT,
+    type_analyse TEXT,
+    resultat TEXT
+)
+""")
+conn.commit()
+
+today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+# 1. Produits vendus par magasin
 query_magasins = """
-SELECT 
-    M.ville,
-    SUM(V.quantite) AS total_produits_vendus
+SELECT M.ville, SUM(V.quantite) AS total_produits_vendus
 FROM Ventes V
 JOIN Magasins M ON V.id_magasin = M.id_magasin
 GROUP BY M.ville
-ORDER BY total_produits_vendus DESC;
+ORDER BY total_produits_vendus DESC
 """
 df_magasins = pd.read_sql(query_magasins, conn)
-print("\n🛒 Quantité totale de produits vendus par magasin :")
-print(df_magasins)
+cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
+               (today, "quantite_par_magasin", df_magasins.to_json(orient="records")))
+conn.commit()
 
-# 2. Produit le plus vendu (en nombre de fois)
-query_top_produit = """
-SELECT 
-    P.nom AS produit,
-    SUM(V.quantite) AS total_vendu
+# 2. Top 10 produits
+query_top = """
+SELECT P.nom AS produit, SUM(V.quantite) AS total_vendu
 FROM Ventes V
 JOIN Produit P ON V.id_produit = P.id_produit
 GROUP BY V.id_produit
 ORDER BY total_vendu DESC
-LIMIT 10;
+LIMIT 10
 """
-df_top_produit = pd.read_sql(query_top_produit, conn)
-print("\n🏆 Les 10 Produits le plus vendus :")
-print(df_top_produit)
+df_top = pd.read_sql(query_top, conn)
+cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
+               (today, "top_10_produits", df_top.to_json(orient="records")))
+conn.commit()
 
-
-# 3. Chiffre d'affaire par magasin
-query_ca_par_magasin = """
-SELECT 
-    M.ville,
-    SUM(V.quantite * P.prix) AS chiffre_affaires
+# 3. Chiffre d'affaires par magasin
+query_ca = """
+SELECT M.ville, SUM(V.quantite * P.prix) AS chiffre_affaires
 FROM Ventes V
 JOIN Produit P ON V.id_produit = P.id_produit
 JOIN Magasins M ON V.id_magasin = M.id_magasin
-GROUP BY M.id_magasin
-ORDER BY chiffre_affaires DESC;
+GROUP BY M.ville
+ORDER BY chiffre_affaires DESC
 """
+df_ca = pd.read_sql(query_ca, conn)
+cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
+               (today, "ca_par_magasin", df_ca.to_json(orient="records")))
+conn.commit()
 
-df_ca = pd.read_sql(query_ca_par_magasin, conn)
-print("\n💰 Chiffre d'affaires par magasin en € :")
-print(df_ca)
+# 4. Chiffre d'affaires total
+query_ca_total = """
+SELECT SUM(V.quantite * P.prix) AS chiffre_affaires_total
+FROM Ventes V
+JOIN Produit P ON V.id_produit = P.id_produit
+"""
+df_ca_total = pd.read_sql(query_ca_total, conn)
+cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
+               (today, "ca_total", df_ca_total.to_json(orient="records")))
+conn.commit()
 
-# Fermeture de la connexion
+print(f"\n💰 Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:.2f} €")
+
+
+# Fermeture
 conn.close()
