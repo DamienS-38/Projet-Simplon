@@ -64,6 +64,12 @@ docker exec -it sqlite_base bash
 ```bash
 sqlite3 /app/DATA/pme.db
 ```
+
+
+
+
+
+🚀 Comment sortir de l'application avec Docker
 - Quitter sqlite :
 ```bash
 .quit
