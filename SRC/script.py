@@ -1,6 +1,7 @@
 #Imports
 import pandas as pd
 import sqlite3
+import os
 
 # Connexion à la base SQLite
 conn = sqlite3.connect("pme.db")
@@ -67,10 +68,18 @@ df_ventes=df_ventes.rename(columns={
 ordre_colonnes_ventes = ['id_produit', 'id_magasin', 'date_vente', 'quantite']
 df_ventes = df_ventes[ordre_colonnes_ventes]
 
+#Eviter les doublons en base
+id_produit_existant = pd.read_sql("SELECT id_produit FROM Produit", conn)['id_produit'].tolist()
+df_produits = df_produits[~df_produits['id_produit'].isin(id_produit_existant)]
+
+id_magasin_existant = pd.read_sql("SELECT id_magasin FROM Magasins", conn)['id_magasin'].tolist()
+df_magasins = df_magasins[~df_magasins['id_magasin'].isin(id_magasin_existant)]
+
+
 
 # Insertion des données en dans la base de données SQlite
-df_produits.to_sql('Produit', conn, if_exists='append', index=False)
-df_magasins.to_sql('Magasins', conn, if_exists='append', index=False)
+df_produits.to_sql('Produit', conn, if_exists='replace', index=False)
+df_magasins.to_sql('Magasins', conn, if_exists='replace', index=False)
 df_ventes.to_sql('vente', conn, if_exists='append', index=False)
 
 

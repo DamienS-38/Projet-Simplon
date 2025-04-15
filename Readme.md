@@ -20,6 +20,7 @@
         - Lancer l’application avec la commande :
             ```bash
             docker compose up --build
+        - Pour tester le containeur dans le terminal : docker start -ai sqlite_base
         - Pour arrêter le conteneur (à la fin de l'utilisation):
             ```bash
             docker compose down
