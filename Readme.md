@@ -34,6 +34,15 @@ Deux services sont utilisés (dans docker-compose.yml) :
     ├── docker-compose.yml            # Orchestration des conteneurs
     └── README.md                     # Documentation du projet
 
+⚙️ Fonctionnalités du script Python
+
+    Description des étapes dans le script :
+        - Nettoie et renomme les colonnes des CSV
+        - Crée les tables dans pme.db si elles n’existent pas
+        - Insère les données en base
+        - Respect des clés primaires/étrangères et l’auto-incrément de id_vente
+
+
 🚀 Comment lancer avec Docker
 - Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
     
@@ -43,20 +52,14 @@ Deux services sont utilisés (dans docker-compose.yml) :
         - Lancer l’application avec la commande :
             ```bash
             docker compose up --build
-        - Contrôle la bonne exécution du container : docker ps
+        - Contrôler la bonne exécution du container : docker ps
         - Pour arrêter le conteneur (à la fin de l'utilisation):
             ```bash
             docker compose down
             
 
 
-⚙️ Fonctionnalités du script Python
 
-    Description des étapes dans le script :
-        - Nettoie et renomme les colonnes des CSV
-        - Crée les tables dans pme.db si elles n’existent pas
-        - Insère les données en base
-        - Respect des clés primaires/étrangères et l’auto-incrément de id_vente
 
 
 
