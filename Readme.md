@@ -1,4 +1,4 @@
-# 📊 Projet CSV ➜ SQLite avec Docker
+# 📊 Projet SIMPLON (CSV ➜ SQLite avec Docker)
 
 ## 🎯 Objectif du projet
 
@@ -16,6 +16,9 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 |---------------|--------------------------------------------------------------------------|
 | `csv-runner`  | Exécute le script Python de transformation CSV ➜ SQLite                 |
 | `sqlite_base` | Conteneur persistant pour accéder à la base SQLite et faire des requêtes |
+
+🖼️ **Schéma de l'architecture** :  
+![Architecture Docker](docker_architecture.png)
 
 ---
 
