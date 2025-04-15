@@ -10,19 +10,12 @@
 
 ## Architecture (Docker)
 
-Ce projet utilise **trois services Docker** définis dans `docker-compose.yml` :
-
-+---------------------+          +---------------------+          +----------------------+
-|                     |          |                     |          |                      |
-|     csv-to-sqlite   |          |     sqlite_base     |          |       analyse        |
-|                     |          |                     |          |                      |
-| - Transforme CSV    |          | - Base SQLite       |          | - Exécute analyse    |
-|   vers SQLite       | <------> |   persistante       | <------> |   SQL                |
-| - Dépend de         |          | - Conteneur de base |          | - Lit les données    |
-|   sqlite_base       |          |   SQLite            |          |   depuis sqlite_base |
-|                     |          |                     |          |                      |
-+---------------------+          +---------------------+          +----------------------+
-
+Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
+| Service              | Description                                                        |
+|----------------------|--------------------------------------------------------------------|
+| **`sqlite_base`**    | Conteneur contenant la base de données SQLite.                     |
+| **`csv-to-sqlite`**  | Transforme et charge les fichiers CSV dans la base de données.     |
+| **`analyse`**        | Exécution d'analyses SQL sur la base de données SQLite             |
 
 **Schéma de l'architecture** :  
 ![Architecture Docker](docker_architecture.png)
@@ -41,12 +34,10 @@ Ce projet utilise **trois services Docker** définis dans `docker-compose.yml` :
 │   └── script.py                 # Script Python de transformation CSV ➜ SQLite
 │
 ├── docker_architecture.png       # Schéma visuel de l'architecture
-├── docker-compose.yml            # Définition des services
+├── requirements.txt              # Dépendances Python
 ├── Dockerfile                    # Image Docker (Python + SQLite)
-├── MCD_pme.png                   # Schéma des Données
-├── Readme.md                     # Documentation du projet
-├── requêtes.sql                  # Script SQL
-└── requirements.txt              # Dépendances Python
+├── docker-compose.yml            # Définition des services
+└── README.md                     # Documentation du projet
 ```
 ---
 
