@@ -33,14 +33,14 @@ Deux services sont utilisés (dans docker-compose.yml) :
     └── README.md                     # Documentation du projet
 
 🚀 Comment lancer avec Docker
-
+- Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
     Commencez par installer Docker :
-        - Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
+        
         - Dans le terminal, se mettre dans le dossier de travail
         - Lancer l’application avec la commande :
             ```bash
             docker compose up --build
-        - Pour tester le containeur dans le terminal : docker ps
+        - Contrôle la bonne exécution du container : docker ps
         - Pour arrêter le conteneur (à la fin de l'utilisation):
             ```bash
             docker compose down
