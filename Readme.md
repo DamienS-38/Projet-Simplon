@@ -5,6 +5,7 @@
 - Générer une base SQLite contenant les données.
 - Permettre des requêtes SQL interactives sur la base.
 
+
 🧱 Architecture (Docker)
 
 Deux services sont utilisés (dans docker-compose.yml) :
@@ -13,6 +14,7 @@ Deux services sont utilisés (dans docker-compose.yml) :
 |---------------|--------------------------------------------------------------------------|
 | `csv-runner`  | Exécute le script Python de transformation CSV ➜ SQLite                 |
 | `sqlite_base` | Conteneur persistant pour accéder à la base SQLite et faire des requêtes |
+
 
 
 📁 Arborescence du projet
@@ -56,9 +58,6 @@ Deux services sont utilisés (dans docker-compose.yml) :
         - Insère les données en base
         - Respect des clés primaires/étrangères et l’auto-incrément de id_vente
 
-
-
-Exemple de requêtes
 
 
 📬 Contact
