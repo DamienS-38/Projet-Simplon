@@ -8,7 +8,11 @@
         tout en respectant l’intégrité des données (relations, clés primaires/étrangères, etc.)
 
 
+🧭 Architecture du Projet
 
+    Voici un visuel de l’architecture Dockerdu projet :
+
+    ![Architecture Docker](./docker-architecture.png)
 
 
 
