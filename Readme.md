@@ -9,10 +9,13 @@ Le but du projet:
 
 🚀 Comment lancer avec Docker
 
-    Commencez par installer Docker :
-        - Télacharger Docker Desktop: https://www.docker.com/products/docker-desktop
+    **Commencez par installer Docker** :
+        - Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
         - Dans le terminal, se mettre dans le dossier de travail
-        - Dans le terminal "bash" tapper: docker compose up --build
+        - Lancer l’application avec la commande :
+            ```bash
+            docker compose up --build
+            ```
 
 
 ⚙️ Fonctionnalités du script Python
