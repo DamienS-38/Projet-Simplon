@@ -5,8 +5,8 @@ WORKDIR /app
 
 #Copie des sources de travail et les .csv dans le conteneur
 #Copie du Script python
-COPY ./src ./src  
-COPY ./data ./data
+COPY ./src /src
+COPY ./data /data
 COPY requirements.txt .
 
 #Install de requirement.txt
