@@ -5,11 +5,11 @@ WORKDIR /app
 
 #Copie des sources de travail et les .csv dans le conteneur
 #Copie du Script python
-COPY ./src /src
-COPY ./data /data
+COPY ./SCR /SCR
+COPY ./DATA /DATA
 COPY requirements.txt .
 
 #Install de requirement.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "src/script.py"]
+CMD ["python", "SRC/script.py"]

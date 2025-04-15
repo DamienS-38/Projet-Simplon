@@ -37,9 +37,9 @@ CREATE TABLE IF NOT EXISTS Ventes (
 ''')
 
 # Chargement des CSV
-df_produits =pd.read_csv('data/produits.csv', delimiter=',')
-df_magasins = pd.read_csv('data/magasins.csv', delimiter=',')
-df_ventes=pd.read_csv('data/ventes.csv', delimiter=',')
+df_produits =pd.read_csv('DATA/produits.csv', delimiter=',')
+df_magasins = pd.read_csv('DATA/magasins.csv', delimiter=',')
+df_ventes=pd.read_csv('DATA/ventes.csv', delimiter=',')
 
 
 #renommer les colonnes des DataFrame

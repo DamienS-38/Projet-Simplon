@@ -5,6 +5,6 @@ services:
     build: .
     container_name: sqlite_base
     volumes:
-      - ./data:/app/data
-      - ./src:/app/src
-    command: python data/script.py
+      - ./DATA:/app/DATA
+      - ./SCR:/app/SCR
+    command: python SCR/script.py
