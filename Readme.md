@@ -23,22 +23,22 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 ---
 
 ## 📁 Arborescence du projet
-
-    ├── DATA/
-    │   ├── magasins.csv              # Fichier CSV magasins source
-    │   ├── produits.csv              # Fichier CSV produits source
-    │   ├── ventes.csv                # Fichier CSV ventes source
-    │   └── pme.db                    # Base SQLite générée
-    │
-    ├── SRC/
-    │   └── script.py                 # Script Python de conversion CSV ➜ SQLite
-    │
-    ├── docker_architecture.png       # Schéma de l'architecture
-    ├── requirements.txt              # Dépendances Python
-    ├── Dockerfile                    # Image Docker avec Python + sqlite3
-    ├── docker-compose.yml            # Orchestration des conteneurs
-    └── README.md                     # Documentation du projet
-
+```
+├── DATA/
+│   ├── magasins.csv              # CSV source des magasins
+│   ├── produits.csv              # CSV source des produits
+│   ├── ventes.csv                # CSV source des ventes
+│   └── pme.db                    # Base SQLite générée automatiquement
+│
+├── SRC/
+│   └── script.py                 # Script Python de transformation CSV ➜ SQLite
+│
+├── docker_architecture.png       # Schéma visuel de l'architecture
+├── requirements.txt              # Dépendances Python
+├── Dockerfile                    # Image Docker (Python + SQLite)
+├── docker-compose.yml            # Définition des services
+└── README.md                     # Documentation du projet
+```
 ---
 
 ## ⚙️ Fonctionnalités du script Python
