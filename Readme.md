@@ -1,14 +1,16 @@
+# 📊 Projet CSV ➜ SQLite avec Docker
 
-🎯 Objectif du projet
+## 🎯 Objectif du projet
 
-- Lire un ou plusieurs fichiers CSV.
-- Générer une base SQLite contenant les données.
-- Permettre des requêtes SQL interactives sur la base.
+- Lire un ou plusieurs fichiers **CSV**.
+- Générer une base **SQLite** contenant les données.
+- Permettre des **requêtes SQL interactives** sur la base via Docker.
 
+---
 
-🧱 Architecture (Docker)
+## 🧱 Architecture (Docker)
 
-Deux services sont utilisés (dans docker-compose.yml) :
+Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 
 | Service       | Rôle                                                                     |
 |---------------|--------------------------------------------------------------------------|
@@ -69,7 +71,7 @@ sqlite3 /app/DATA/pme.db
 
 
 
-🚀 Comment sortir de l'application avec Docker
+🚪 Quitter l’application
 - Quitter sqlite :
 ```bash
 .quit
