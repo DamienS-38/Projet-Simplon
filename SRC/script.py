@@ -31,7 +31,7 @@ cursor.execute('PRAGMA foreign_keys = ON;')
 
 # Création des tables si elles n'existent pas
 cursor.execute('''
-CREATE TABLE IF NOT EXISTS Produit (
+CREATE TABLE IF NOT EXISTS Produits (
     id_produit TEXT PRIMARY KEY,
     nom TEXT,
     prix REAL,
@@ -89,7 +89,7 @@ df_ventes = df_ventes.rename(columns={
 ordre_colonnes_ventes = ['id_produit', 'id_magasin', 'date_vente', 'quantite']
 df_ventes = df_ventes[ordre_colonnes_ventes]
 
-# Éviter les doublons sur Produits
+# Éviter les doublons sur Produits (Enregistrement des id_produit dans une liste)
 id_produit_existant = pd.read_sql("SELECT id_produit FROM Produit", conn)['id_produit'].tolist()
 df_produits = df_produits[~df_produits['id_produit'].isin(id_produit_existant)]
 
@@ -115,7 +115,7 @@ df_ventes = df_ventes.drop(columns=['vente_key'])
 
 # Insertion des données
 print(df_produits.shape)
-df_produits.to_sql('Produit', conn, if_exists='append', index=False)
+df_produits.to_sql('Produits', conn, if_exists='append', index=False)
 print("Insertion des produits terminée.")
 
 df_magasins.to_sql('Magasins', conn, if_exists='append', index=False)

@@ -25,14 +25,14 @@ today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 query_ca_total = """
 SELECT SUM(V.quantite * P.prix) AS chiffre_affaires_total
 FROM Ventes V
-JOIN Produit P ON V.id_produit = P.id_produit
+JOIN Produits P ON V.id_produit = P.id_produit
 """
 df_ca_total = pd.read_sql(query_ca_total, conn)
 cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
                (today, "ca_total", df_ca_total.to_json(orient="records")))
 conn.commit()
 
-print(f"\n💰 Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:.2f} €")
+print(f"\n Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:.2f} €")
 
 
 
@@ -55,7 +55,7 @@ conn.commit()
 query_top = """
 SELECT P.nom AS produit, SUM(V.quantite) AS total_vendu
 FROM Ventes V
-JOIN Produit P ON V.id_produit = P.id_produit
+JOIN Produits P ON V.id_produit = P.id_produit
 GROUP BY V.id_produit
 ORDER BY total_vendu DESC
 LIMIT 10
@@ -69,7 +69,7 @@ conn.commit()
 query_ca = """
 SELECT M.ville, SUM(V.quantite * P.prix) AS chiffre_affaires
 FROM Ventes V
-JOIN Produit P ON V.id_produit = P.id_produit
+JOIN Produits P ON V.id_produit = P.id_produit
 JOIN Magasins M ON V.id_magasin = M.id_magasin
 GROUP BY M.ville
 ORDER BY chiffre_affaires DESC
