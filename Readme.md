@@ -43,19 +43,23 @@ Deux services sont utilisés (dans docker-compose.yml) :
         - Respect des clés primaires/étrangères et l’auto-incrément de id_vente
 
 
-🚀 Comment lancer avec Docker
+🚀 Comment exécuter l'application avec Docker
 - Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
     
     Commencez par installer Docker, puis suivre les étapes suivantes:
         
-        - Dans le terminal, se mettre dans le dossier de travail
-        - Lancer l’application avec la commande :
-            ```bash
-            docker compose up --build
-        - Contrôler la bonne exécution du container : docker ps
-        - Pour arrêter le conteneur (à la fin de l'utilisation):
-            ```bash
-            docker compose down
+Dans le terminal, se mettre dans le dossier de travail
+- Lancer l’application avec la commande :
+```bash
+docker compose up --build
+```
+- Contrôler la bonne exécution du container : docker ps
+- Entrer dans le conteneur interactif : docker exec -it sqlite_base bash
+- Lancer le client SQLite : sqlite3 /app/DATA/pme.db
+- Quitter sqlite : .quit
+- Sortir du container : Exit
+- Pour arrêter le conteneur (à la fin de l'utilisation) : docker compose down
+
             
 
 
