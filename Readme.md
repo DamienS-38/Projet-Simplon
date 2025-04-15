@@ -27,17 +27,19 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 ├── DATA/
 │   ├── magasins.csv              # CSV source des magasins
 │   ├── produits.csv              # CSV source des produits
-│   ├── ventes.csv                # CSV source des ventes
-│   └── pme.db                    # Base SQLite générée automatiquement
+│   └── ventes.csv                # CSV source des ventes
 │
 ├── SRC/
-│   └── script.py                 # Script Python de transformation CSV ➜ SQLite
+│   ├── script.py                 # Script Python de transformation CSV ➜ SQLite
+│   └── analyse.py                # Script Python d'analyse (Requête SQL)
 │
 ├── docker_architecture.png       # Schéma visuel de l'architecture
-├── requirements.txt              # Dépendances Python
-├── Dockerfile                    # Image Docker (Python + SQLite)
 ├── docker-compose.yml            # Définition des services
-└── README.md                     # Documentation du projet
+├── Dockerfile                    # Image Docker (Python + SQLite)
+├── MCD_pme.png                   # Schéma des Données
+├── Readme.md                     # Documentation du projet
+├── requêtes.sql                  # Script SQL
+└── requirements.txt              # Dépendances Python
 ```
 ---
 
@@ -122,11 +124,7 @@ Requêtes effectuées :
 
     1. Chiffre d'affaires total
     
-    2. Quantité de produits par magasin
-
-    3. Produit le plus vendu
-
-    4. Chiffre d'affaires par magasin (quantité × prix unitaire)
+    2. Ventes par produit
 
 
 

@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Ventes (
     id_magasin TEXT,
     date_vente TEXT,
     quantite INTEGER,
-    FOREIGN KEY(id_produit) REFERENCES Produit(id_produit),
+    FOREIGN KEY(id_produit) REFERENCES Produits(id_produit),
     FOREIGN KEY(id_magasin) REFERENCES Magasins(id_magasin)
     --,    UNIQUE(id_produit, id_magasin, date_vente)
 )
@@ -90,7 +90,7 @@ ordre_colonnes_ventes = ['id_produit', 'id_magasin', 'date_vente', 'quantite']
 df_ventes = df_ventes[ordre_colonnes_ventes]
 
 # Éviter les doublons sur Produits (Enregistrement des id_produit dans une liste)
-id_produit_existant = pd.read_sql("SELECT id_produit FROM Produit", conn)['id_produit'].tolist()
+id_produit_existant = pd.read_sql("SELECT id_produit FROM Produits", conn)['id_produit'].tolist()
 df_produits = df_produits[~df_produits['id_produit'].isin(id_produit_existant)]
 
 # Éviter les doublons sur Magasins
@@ -115,7 +115,7 @@ df_ventes = df_ventes.drop(columns=['vente_key'])
 
 # Insertion des données
 print(df_produits.shape)
-df_produits.to_sql('Produits', conn, if_exists='append', index=False)
+df_produits.to_sql('Produits', con=conn, if_exists='append', index=False)
 print("Insertion des produits terminée.")
 
 df_magasins.to_sql('Magasins', conn, if_exists='append', index=False)

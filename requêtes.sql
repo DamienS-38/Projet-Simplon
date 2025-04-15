@@ -1,4 +1,4 @@
-/*Script de Création des TABLES */
+-- Section pour la création des tables
 
 --Table Produits
 CREATE TABLE IF NOT EXISTS Produits (
@@ -36,9 +36,19 @@ CREATE TABLE IF NOT EXISTS Analyse (
 )
 
 
-/*Scripts des requêtes d'Analyse des ventes*/
+-- Section pour les analyses
 
 --Calcul du chiffre d'affaire total (Prix X Qté)
 SELECT SUM(V.quantite * P.prix) AS chiffre_affaires_total
 FROM Ventes V
 JOIN Produits P ON V.id_produit = P.id_produit
+
+
+--Ventes par produit
+SELECT V.id_produit, COUNT (quantite) as Nombre_vendu
+FROM Ventes V
+JOIN Produits P ON V.id_produit = P.id_produit
+GROUP BY V.id_produit
+ORDER BY Nombre_vendu DESC
+
+--Ventes par région

@@ -33,3 +33,6 @@ services:
     command: python SRC/analyse.py
     depends_on:
       - sqlite_base  # analyse attend sqlite_base pour démarrer
+    labels:
+      maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
+      description: "Requêtes SQL pour l'analyse des Ventes"

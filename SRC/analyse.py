@@ -37,50 +37,35 @@ print(f"\n Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:
 
 
 
-
-# 2. Produits vendus par magasin
-query_magasins = """
-SELECT M.ville, SUM(V.quantite) AS total_produits_vendus
-FROM Ventes V
-JOIN Magasins M ON V.id_magasin = M.id_magasin
-GROUP BY M.ville
-ORDER BY total_produits_vendus DESC
-"""
-df_magasins = pd.read_sql(query_magasins, conn)
-cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
-               (today, "quantite_par_magasin", df_magasins.to_json(orient="records")))
-conn.commit()
-
-# 3. Top 10 produits
-query_top = """
-SELECT P.nom AS produit, SUM(V.quantite) AS total_vendu
+# 2. L'article le plus vendu, affiche la quantité
+query_ventes_produit = """
+SELECT V.id_produit as Ref_produit, SUM(quantite) as Nombre_vendu
 FROM Ventes V
 JOIN Produits P ON V.id_produit = P.id_produit
 GROUP BY V.id_produit
-ORDER BY total_vendu DESC
-LIMIT 10
+ORDER BY Nombre_vendu DESC
 """
-df_top = pd.read_sql(query_top, conn)
+df_ventes_produit=pd.read_sql(query_ventes_produit, conn)
 cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
-               (today, "top_10_produits", df_top.to_json(orient="records")))
+               (today, "Quantité_par_produit", df_ventes_produit.to_json(orient="records")))
 conn.commit()
 
-# 4. Chiffre d'affaires par magasin
-query_ca = """
-SELECT M.ville, SUM(V.quantite * P.prix) AS chiffre_affaires
+print(f"\n La quantité de l'article {df_ventes_produit['Ref_produit'][0]}, le plus vendu est de : {df_ventes_produit['Nombre_vendu'][0]} ")
+
+
+query = """
+SELECT V.id_produit AS Ref_produit, P.nom AS Nom_produit, SUM(quantite) AS Quantite_vendue
 FROM Ventes V
 JOIN Produits P ON V.id_produit = P.id_produit
-JOIN Magasins M ON V.id_magasin = M.id_magasin
-GROUP BY M.ville
-ORDER BY chiffre_affaires DESC
+GROUP BY V.id_produit
+ORDER BY Quantite_vendue DESC
 """
-df_ca = pd.read_sql(query_ca, conn)
-cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
-               (today, "ca_par_magasin", df_ca.to_json(orient="records")))
-conn.commit()
 
+df_ventes_par_produit = pd.read_sql(query, conn)
 
-
+print("\n Tableau des ventes par produit :")
+print(df_ventes_par_produit.to_string(index=False))
+print("\n")
 
 # Fermeture
 conn.close()
