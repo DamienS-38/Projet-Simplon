@@ -5,8 +5,8 @@ services:
     container_name: sqlite_base
     volumes:
       - ./DATA:/app/DATA
-      - ./SCR:/app/SCR
-    command: python SCR/script.py
+      - ./SRC:/app/SRC
+    command: python SRC/script.py
     labels:
       maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
       description: "Projet Simplon"
