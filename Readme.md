@@ -49,27 +49,26 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 ---
 
 ## 🚀 Comment exécuter l'application avec Docker
-- Télécharger [Docker Desktop](https://www.docker.com/products/docker-desktop)
-    
-Commencez par installer Docker, puis dans le terminal, se mettre dans le dossier de travail
+1. ⚙️ **Installer Docker** si ce n’est pas déjà fait :  
+   👉 [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-- Lancer l’application avec la commande :
+2. 📁 Ouvrir un terminal dans le dossier du projet
+
+3. 🧱 **Construire et démarrer les conteneurs :**
 ```bash
 docker compose up --build
 ```
-- Contrôler la bonne exécution du container :
+
+4. ✅ **Vérifier que tout tourne :**
 ```bash
 docker ps
-``` 
-- Entrer dans le conteneur interactif :
-```bash
-docker exec -it sqlite_base bash
-```
-- Lancer le client SQLite :
-```bash
-sqlite3 /app/DATA/pme.db
 ```
 
+5. 🔍 **Accéder à SQLite dans le conteneur :**
+```bash
+docker exec -it sqlite_base bash
+sqlite3 /app/DATA/pme.db
+```
 
 ---
 
@@ -88,7 +87,7 @@ Exit
 ```bash
 docker compose down
 ```  
-     
+
 ---
 
 ## 📬 Contact
