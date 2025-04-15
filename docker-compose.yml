@@ -1,18 +1,5 @@
-
+version: "3.9"
 services:
-  csv-to-sqlite:
-    build: .
-    container_name: csv-runner
-    volumes:
-      - ./DATA:/app/DATA
-      - ./SRC:/app/SRC
-    command: python SRC/script.py
-    depends_on:
-      - sqlite_base
-    labels:
-      maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
-      description: "Exécution du script de transformation CSV vers SQLite"
-
   sqlite_base:
     build: .
     container_name: sqlite_base
@@ -24,6 +11,19 @@ services:
       maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
       description: "Conteneur interactif pour manipuler la base SQLite"
 
+  csv-to-sqlite:
+    build: .
+    container_name: csv-runner
+    volumes:
+      - ./DATA:/app/DATA
+      - ./SRC:/app/SRC
+    command: python SRC/script.py
+    depends_on:
+      - sqlite_base  # csv-to-sqlite attend sqlite_base pour démarrer
+    labels:
+      maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
+      description: "Exécution du script de transformation CSV vers SQLite"
+
   analyse:
     build: .
     container_name: analyse-runner
@@ -32,4 +32,4 @@ services:
       - ./SRC:/app/SRC
     command: python SRC/analyse.py
     depends_on:
-      - sqlite_base
+      - sqlite_base  # analyse attend sqlite_base pour démarrer
