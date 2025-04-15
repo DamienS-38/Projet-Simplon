@@ -23,3 +23,13 @@ services:
     labels:
       maintainer: "Schaeffer <damien.schaeffer@gmail.com>"
       description: "Conteneur interactif pour manipuler la base SQLite"
+
+  analyse:
+    build: .
+    container_name: analyse-runner
+    volumes:
+      - ./DATA:/app/DATA
+      - ./SRC:/app/SRC
+    command: python SRC/analyse.py
+    depends_on:
+      - sqlite_base

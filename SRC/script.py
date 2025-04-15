@@ -7,6 +7,10 @@ import os
 conn = sqlite3.connect(os.path.join("DATA", "pme.db"))
 cursor = conn.cursor()
 
+# Activer les clés étrangères
+cursor.execute('PRAGMA foreign_keys = ON;')
+
+
 # Création des tables si elles n'existent pas
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Produit (
@@ -33,8 +37,8 @@ CREATE TABLE IF NOT EXISTS Ventes (
     date_vente TEXT,
     quantite INTEGER,
     FOREIGN KEY(id_produit) REFERENCES Produit(id_produit),
-    FOREIGN KEY(id_magasin) REFERENCES Magasins(id_magasin),
-    UNIQUE(id_produit, id_magasin, date_vente)
+    FOREIGN KEY(id_magasin) REFERENCES Magasins(id_magasin)
+    --,    UNIQUE(id_produit, id_magasin, date_vente)
 )
 ''')
 
@@ -42,6 +46,14 @@ CREATE TABLE IF NOT EXISTS Ventes (
 df_produits = pd.read_csv('DATA/produits.csv', delimiter=',')
 df_magasins = pd.read_csv('DATA/magasins.csv', delimiter=',')
 df_ventes = pd.read_csv('DATA/ventes.csv', delimiter=',')
+
+
+#Vérification
+print(df_produits.head())
+print(df_magasins.head())
+print(df_ventes.head())
+
+
 
 # Renommage des colonnes
 df_produits = df_produits.rename(columns={
@@ -77,14 +89,23 @@ id_magasin_existant = pd.read_sql("SELECT id_magasin FROM Magasins", conn)['id_m
 df_magasins = df_magasins[~df_magasins['id_magasin'].isin(id_magasin_existant)]
 
 # Éviter les doublons sur Ventes (via clé composite)
-df_ventes['vente_key'] = df_ventes['id_produit'] + "_" + df_ventes['id_magasin'] + "_" + df_ventes['date_vente']
+print(df_ventes.dtypes)
+df_ventes['vente_key'] = (
+    df_ventes['id_produit'].astype(str) + "_" +
+    df_ventes['id_magasin'].astype(str) + "_" +
+    df_ventes['date_vente'].astype(str)
+)
+print(df_ventes.dtypes)
 ventes_existantes = pd.read_sql("SELECT id_produit, id_magasin, date_vente FROM Ventes", conn)
 
 ventes_existantes['vente_key'] = ventes_existantes['id_produit'] + "_" + ventes_existantes['id_magasin'] + "_" + ventes_existantes['date_vente']
 df_ventes = df_ventes[~df_ventes['vente_key'].isin(ventes_existantes['vente_key'])]
 df_ventes = df_ventes.drop(columns=['vente_key'])
 
+
+
 # Insertion des données
+print(df_produits.shape)
 df_produits.to_sql('Produit', conn, if_exists='append', index=False)
 print("Insertion des produits terminée.")
 

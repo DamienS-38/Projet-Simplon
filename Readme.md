@@ -78,7 +78,7 @@ sqlite3 /app/DATA/pme.db
 🖼️ **Schéma de la base de données** :  
 ![MCD](MCD_pme.png)
 
-
+---
 
 
 
@@ -110,6 +110,18 @@ docker compose down
 
 ---
 
+## Analyse de la PME:
+```bash
+docker-compose run analyse
+```
+---
+
+## Gestion des Erreurs:
+1. ✅ **Afficher des Logs en cas d'erreurs :**
+```bash
+docker-compose up csv-to-sqlite
+```
+---
 ## 📬 Contact
 
 👤 Damien S
