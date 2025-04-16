@@ -53,7 +53,7 @@ Ce script assure les étapes suivantes :
 ---
 
 
-**Schéma de la base de données** :  
+**Schéma de la base de données SQLite "pme.db"** :  
 ![MCD](MCD_pme.png)
 
 ---
