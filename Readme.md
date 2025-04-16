@@ -81,7 +81,7 @@ Requêtes effectuées :
 
     1. Chiffre d'affaires total
     
-    2. Ventes par produit
+    2. Acticle le plus vendu
 
     3. Tableau des ventes par produit
 

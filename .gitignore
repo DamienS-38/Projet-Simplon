@@ -4,6 +4,7 @@ __pycache__/
 
 Script.ipynb
 Data/pme.db
+Data/analyse_resultats.csv
 
 
 # Ignorer les fichiers volumineux de données brutes
