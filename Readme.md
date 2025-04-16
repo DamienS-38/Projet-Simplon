@@ -64,13 +64,18 @@ Ce script assure les étapes suivantes :
 
 2.  **Ouvrir un terminal dans le dossier du projet**
 
-3.  **Lancer le service de transformation CSV ➜ SQLite:**
+
+3. **Construction des images Docker:**
+```bash
+docker compose build
+```
+4.  **Lancer le service de transformation CSV ➜ SQLite:**
 Pour charger les fichiers CSV dans la base SQLite, exécute la commande suivante :
 ```bash
 docker compose run --rm csv-to-sqlite
 ```
 
-4.  **Exécuter l’analyse:**
+5.  **Exécuter l’analyse:**
 Le script analyse.py permet d'extraire des indicateurs clés à partir des données de la base pme.db.
 Requêtes effectuées :
 
@@ -85,7 +90,7 @@ Exécute la commande suivante pour effectuer l’analyse :
 docker compose run --rm analyse
 ```
 
-5.  **Pour arrêter le conteneur (à la fin de l'utilisation) :**
+6.  **Pour arrêter le conteneur (à la fin de l'utilisation) :**
 
 Une fois l'exécution terminée, tu peux arrêter tous les conteneurs Docker avec la commande suivante :
 ```bash
