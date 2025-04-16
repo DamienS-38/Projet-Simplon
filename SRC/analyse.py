@@ -39,18 +39,18 @@ print(f"\n Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:
 
 # 2. L'article le plus vendu, affiche la quantité
 query_ventes_produit = """
-SELECT V.id_produit as Ref_produit, SUM(quantite) as Nombre_vendu
+SELECT V.id_produit as Ref_produit, SUM(quantite) as Quantite_vendue
 FROM Ventes V
 JOIN Produits P ON V.id_produit = P.id_produit
 GROUP BY V.id_produit
-ORDER BY Nombre_vendu DESC
+ORDER BY Quantite_vendue DESC
 """
 df_ventes_produit=pd.read_sql(query_ventes_produit, conn)
 cursor.execute("INSERT INTO Analyse (date_analyse, type_analyse, resultat) VALUES (?, ?, ?)",
                (today, "Quantité_par_produit", df_ventes_produit.to_json(orient="records")))
 conn.commit()
 
-print(f"\n La quantité de l'article {df_ventes_produit['Ref_produit'][0]}, le plus vendu est de : {df_ventes_produit['Nombre_vendu'][0]} ")
+print(f"\n La quantité de l'article {df_ventes_produit['Ref_produit'][0]}, le plus vendu est de : {df_ventes_produit['Quantite_vendue'][0]} ")
 
 
 query = """
