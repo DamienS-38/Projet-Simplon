@@ -10,7 +10,7 @@
 
 ## Architecture (Docker)
 
-Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
+Ce projet utilise **trois services Docker** définis dans `docker-compose.yml` :
 | Service              | Description                                                        |
 |----------------------|--------------------------------------------------------------------|
 | **`sqlite_base`**    | Conteneur contenant la base de données SQLite.                     |
