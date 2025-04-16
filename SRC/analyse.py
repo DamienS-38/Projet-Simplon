@@ -95,7 +95,8 @@ print("\n")
 
 # Enregistrer tous les résultats dans un seul fichier CSV
 df_all_results = pd.DataFrame(all_results)
-df_all_results.to_csv('./DATA/analyse_resultats.csv', index=False)
+df_all_results.to_csv('analyse_resultats.csv', index=False)  # Enregistrer dans le dossier DATA
+
 
 # Fermeture
 conn.close()

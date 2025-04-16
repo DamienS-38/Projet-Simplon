@@ -1,7 +1,7 @@
-FROM python:3.12.8
+FROM python:3.9-slim
 
 # Labels pour les métadonnées
-LABEL maintainer="Schaeffer <damien.schaeffer@gmail.com>"
+LABEL maintainer="Damien S"
 LABEL version="1.0"
 LABEL description="Projet Simplon"
 

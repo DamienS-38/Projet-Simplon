@@ -75,7 +75,7 @@ Pour charger les fichiers CSV dans la base SQLite, exécute la commande suivante
 docker compose run --rm csv-to-sqlite
 ```
 
-5.  **Exécuter l’analyse:**
+5.  **Exécuter l’analyse --> Export d'un fichier CSV 'analyse-resultats.csv' dans la racine du projet:**
 Le script analyse.py permet d'extraire des indicateurs clés à partir des données de la base pme.db.
 Requêtes effectuées :
 

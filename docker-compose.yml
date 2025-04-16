@@ -23,4 +23,5 @@ services:
     volumes:
       - ./DATA:/app/DATA
       - ./SRC:/app/SRC
+      - .:/app 
     command: python SRC/analyse.py
