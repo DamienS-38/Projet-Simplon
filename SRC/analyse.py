@@ -52,7 +52,7 @@ conn.commit()
 
 print(f"\n La quantité de l'article {df_ventes_produit['Ref_produit'][0]}, le plus vendu est de : {df_ventes_produit['Quantite_vendue'][0]} ")
 
-
+# 3. Tableau des ventes par produit
 query = """
 SELECT V.id_produit AS Ref_produit, P.nom AS Nom_produit, SUM(quantite) AS Quantite_vendue
 FROM Ventes V

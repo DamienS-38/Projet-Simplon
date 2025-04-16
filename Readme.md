@@ -1,4 +1,4 @@
-# Projet SIMPLON (CSV ➜ SQLite avec Docker)
+# Projet SIMPLON – Chargement de CSV vers SQLite avec Docker
 
 ## Objectif du projet
 
@@ -43,13 +43,18 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 ```
 ---
 
-##  Fonctionnalités du script Python
+##  Fonctionnalités du script Python "script.py"
+Ce script assure les étapes suivantes :
+- Chargement et nettoyage des fichiers CSV
+- Renommage cohérent des colonnes
+- Création des tables (si elles n’existent pas) dans `pme.db`
+- Insertion des données (avec vérification d’unicité pour éviter les doublons)
+- Application des contraintes : clés primaires, clés étrangères, auto-incrément
+---
 
-    Description des étapes dans le script :
-        - Nettoie et renomme les colonnes des CSV
-        - Crée les tables dans pme.db si elles n’existent pas
-        - Insère les données en base
-        - Respect des clés primaires/étrangères et l’auto-incrément de id_vente
+
+**Schéma de la base de données** :  
+![MCD](MCD_pme.png)
 
 ---
 
@@ -57,68 +62,15 @@ Ce projet utilise **deux services Docker** définis dans `docker-compose.yml` :
 1.  **Installer Docker** si ce n’est pas déjà fait :  
     [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-2.  Ouvrir un terminal dans le dossier du projet
+2.  **Ouvrir un terminal dans le dossier du projet**
 
-3.  **Construire et démarrer les conteneurs :**
+3.  **Lancer le service de transformation CSV ➜ SQLite:**
+Pour charger les fichiers CSV dans la base SQLite, exécute la commande suivante :
 ```bash
-docker compose up --build -d
+docker compose run --rm csv-to-sqlite
 ```
 
-4.  **Vérifier que tout tourne :**
-```bash
-docker ps
-```
-
-5.  **Accéder à SQLite dans le conteneur :**
-```bash
-docker exec -it sqlite_base bash
-sqlite3 /app/DATA/pme.db
-```
-
----
-
-**Schéma de la base de données** :  
-![MCD](MCD_pme.png)
-
----
-
-
-
-
-## Requêtes SQL dans SQLite
-
-Voici quelques commandes utiles une fois dans le client SQLite :
-
-```sql
-.tables                    -- Voir les tables disponibles
-.schema Ventes             -- Voir la structure de la table "Ventes"
-SELECT * FROM Ventes;      -- Voir les ventes
-```
----
-
-## Quitter l’application
-- Quitter sqlite :
-```bash
-.quit
-```
-- Sortir du container :
-```bash
-Exit
-```
-- Pour arrêter le conteneur (à la fin de l'utilisation) :
-```bash
-docker compose down
-```  
-
----
-
-## Analyse des Données (via analyse.py)
-
-- Exécuter l’analyse (en supprimant le conteneur automatiquement après) :
-```bash
-docker compose run --rm analyse
-```
-
+4.  **Exécuter l’analyse:**
 Le script analyse.py permet d'extraire des indicateurs clés à partir des données de la base pme.db.
 Requêtes effectuées :
 
@@ -126,18 +78,75 @@ Requêtes effectuées :
     
     2. Ventes par produit
 
+    3. Tableau des ventes par produit
 
+Exécute la commande suivante pour effectuer l’analyse :
+```bash
+docker compose run --rm analyse
+```
+
+5.  **Pour arrêter le conteneur (à la fin de l'utilisation) :**
+
+Une fois l'exécution terminée, tu peux arrêter tous les conteneurs Docker avec la commande suivante :
+```bash
+docker compose down
+```
 
 ---
 
-## Gestion des Erreurs:
-1. **Afficher des Logs en cas d'erreurs :**
+
+## Requêtes SQL dans SQLite (Pour aller plus loin)
+Si tu souhaites effectuer des requêtes SQL directement dans la base de données SQLite, voici quelques étapes :
+
+1.  **Pour construire et démarrer les conteneurs, tape :**
 ```bash
-docker-compose up csv-to-sqlite
+docker compose up --build -d
 ```
+
+2.  **Vérifier que les conteneurs sont en fonctionnement :**
+```bash
+docker ps
+```
+
+3.  **Pour accéder à SQLite et intéragir avec la base de données, exécute :**
+```bash
+docker exec -it sqlite_base bash
+sqlite3 /app/DATA/pme.db
+```
+
+4.  **Voici quelques commandes utiles une fois dans SQLite :**
+
+```sql
+.tables                    -- Voir les tables disponibles
+.schema Ventes             -- Voir la structure de la table "Ventes"
+SELECT * FROM Ventes;      -- Voir les ventes
+```
+
+Afficher le chiffre d'affaire total
+```sql
+SELECT SUM(V.quantite * P.prix) AS chiffre_affaires_total
+FROM Ventes V
+JOIN Produits P ON V.id_produit = P.id_produit;
+```
+
+5.  **Pour quitter l'interface SQLite, tape :**
+```bash
+.quit
+```
+6.  **Pour quitter le conteneur, tape:**
+```bash
+Exit
+```
+7.  **Pour arrêter les conteneurs après utilisation, tape :**
+```bash
+docker compose down
+```  
+
+
 ---
 ## 📬 Contact
+Nom : Damien S
 
-👤 Damien S
-🔗 [LinkedIn](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)
+[LinkedIn](https://www.linkedin.com/in/damien-schaeffer-45a59821b/)
+
 ---

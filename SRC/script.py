@@ -10,11 +10,11 @@ df_magasins = pd.read_csv('DATA/magasins.csv', delimiter=',')
 df_ventes = pd.read_csv('DATA/ventes.csv', delimiter=',')
 
 #Vérification du chargement des CSV
-print(df_produits.head())
-print(df_magasins.head())
-print(df_ventes.head())
+#print(df_produits.head())
+#print(df_magasins.head())
+#print(df_ventes.head())
 
-#Récupération des csv en ligne
+#Récupération des csv en ligne (non-utilisé)
 url_produits="https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=0&single=true&output=csv"
 url_magasins = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=714623615&single=true&output=csv"
 url_ventes   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=760830694&single=true&output=csv"
@@ -23,6 +23,12 @@ url_ventes   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT
 
 # Connexion à la base SQLite
 db_path = os.path.join("DATA", "pme.db")
+
+# Supprimer l'ancienne base de données si elle existe
+if os.path.exists(db_path):
+    os.remove(db_path)
+    print(f"Ancienne base supprimée : {db_path}")
+
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
@@ -98,13 +104,13 @@ id_magasin_existant = pd.read_sql("SELECT id_magasin FROM Magasins", conn)['id_m
 df_magasins = df_magasins[~df_magasins['id_magasin'].isin(id_magasin_existant)]
 
 # Éviter les doublons sur Ventes (via clé composite)
-print(df_ventes.dtypes)
+#changer les types avant concaténation
 df_ventes['vente_key'] = (
     df_ventes['id_produit'].astype(str) + "_" +
     df_ventes['id_magasin'].astype(str) + "_" +
     df_ventes['date_vente'].astype(str)
 )
-print(df_ventes.dtypes)
+
 ventes_existantes = pd.read_sql("SELECT id_produit, id_magasin, date_vente FROM Ventes", conn)
 
 ventes_existantes['vente_key'] = ventes_existantes['id_produit'] + "_" + ventes_existantes['id_magasin'] + "_" + ventes_existantes['date_vente']
@@ -114,7 +120,6 @@ df_ventes = df_ventes.drop(columns=['vente_key'])
 
 
 # Insertion des données
-print(df_produits.shape)
 df_produits.to_sql('Produits', con=conn, if_exists='append', index=False)
 print("Insertion des produits terminée.")
 
