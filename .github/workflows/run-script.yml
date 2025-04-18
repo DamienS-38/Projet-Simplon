@@ -1,0 +1,33 @@
+on:
+  schedule:
+    - cron: '15 12 * * *' # 14h15 Heure française ≈ 12h15 UTC en été
+    - cron: '4 4 * * *'    # 6h00 Heure française ≈ 4h00 UTC en été
+  workflow_dispatch: # Permet aussi de lancer à la main
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloner le dépôt
+      uses: actions/checkout@v4
+
+    - name: Configurer Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9' # Tu peux changer si besoin
+
+    - name: Installer les dépendances
+      run: |
+        pip install -r requirements.txt
+
+    - name: Créer dossier logs
+      run: mkdir -p logs
+
+    - name: Exécuter script.py
+      run: |
+        python SRC/script.py > logs/script_$(date +%Y-%m-%d_%H-%M).log 2>&1
+
+    - name: Exécuter analyse.py
+      run: |
+        python SRC/analyse.py > logs/analyse_$(date +%Y-%m-%d_%H-%M).log 2>&1
