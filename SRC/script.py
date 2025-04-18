@@ -1,23 +1,36 @@
 # Imports
+import requests
 import os
 import sqlite3
 import pandas as pd
+from io import StringIO
 
 
 # Chargement des CSV
-df_produits = pd.read_csv('DATA/produits.csv', delimiter=',')
-df_magasins = pd.read_csv('DATA/magasins.csv', delimiter=',')
-df_ventes = pd.read_csv('DATA/ventes.csv', delimiter=',')
+df_produits2 = pd.read_csv('DATA/produits.csv', delimiter=',')
+df_magasins2 = pd.read_csv('DATA/magasins.csv', delimiter=',')
+df_ventes2 = pd.read_csv('DATA/ventes.csv', delimiter=',')
 
 #Vérification du chargement des CSV
 #print(df_produits.head())
 #print(df_magasins.head())
 #print(df_ventes.head())
 
-#Récupération des csv en ligne (non-utilisé)
-url_produits="https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=0&single=true&output=csv"
+#Récupération des csv en ligne (non-utilisé) --> Comment les gérer?!
+url_produits = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=0&single=true&output=csv"
+reponse_produits = requests.get(url_produits)
+df_produits = pd.read_csv(StringIO(reponse_produits.content.decode('utf-8')), sep=',')
+
+
 url_magasins = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=714623615&single=true&output=csv"
+reponse_magasins = requests.get(url_magasins)
+df_magasins = pd.read_csv(StringIO(reponse_magasins.content.decode('utf-8')), sep=',')
+
+
+
 url_ventes   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSawI56WBC64foMT9pKCiY594fBZk9Lyj8_bxfgmq-8ck_jw1Z49qDeMatCWqBxehEVoM6U1zdYx73V/pub?gid=760830694&single=true&output=csv"
+reponse_ventes = requests.get(url_ventes)
+df_ventes = pd.read_csv(StringIO(reponse_ventes.content.decode('utf-8')), sep=',')
 
 
 

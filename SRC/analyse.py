@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS Analyse (
 """)
 conn.commit()
 
+#Récupére la date du jour
 today = (datetime.now() + timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')
 
 # Initialisation d'un tableau pour stocker tous les résultats
@@ -44,7 +45,11 @@ all_results.append({
     "type_analyse": "ca_total",
     "resultat": df_ca_total.to_json(orient="records")
 })
+
 print(f"\n Chiffre d'affaires total : {df_ca_total['chiffre_affaires_total'][0]:.2f} €")
+
+
+
 
 # 2. L'article le plus vendu, affiche la quantité
 query_ventes_produit = """
@@ -82,6 +87,7 @@ ORDER BY Quantite_vendue DESC
 """
 
 df_ventes_par_produit = pd.read_sql(query, conn)
+
 # Ajouter au tableau des résultats à exporter
 all_results.append({
     "date_analyse": today,
